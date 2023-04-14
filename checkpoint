@@ -1,0 +1,2 @@
+model_checkpoint_path: "/home/myori/Projects/chatbot/model_bobert"
+all_model_checkpoint_paths: "/home/myori/Projects/chatbot/model_bobert"

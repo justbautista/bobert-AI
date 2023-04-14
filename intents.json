@@ -1,0 +1,108 @@
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": [
+                "Hello!",
+                "Hi",
+                "Hi there!",
+                "Hey!",
+                "Good morning!",
+                "Good afternoon!",
+                "Good evening!",
+                "Nice to see you!",
+                "Lovely to meet you!",
+                "Pleasure to meet you!",
+                "Greetings!",
+                "Salutations!",
+                "Yo!",
+                "Good to see you!",
+                "It's great to see you!",
+                "Welcome!",
+                "G'day!",
+                "Hello and welcome!",
+                "Hi, nice to meet you!",
+                "Hey, good to see you!",
+                "Good to meet you!",
+                "Hi, great to see you!",
+                "Hey, it's good to be here!"
+            ],
+            "responses": [
+                "Hello",
+                "Hi",
+                "Hi, how are you?",
+                "Hey there! Nice to see you too.",
+                "Hello! It's good to be here.",
+                "Good to see you! How are things?",
+                "Nice to see you too! What's new?",
+                "Hello!",
+                "Hi there!",
+                "Hey!",
+                "Good morning!",
+                "Good afternoon!",
+                "Good evening!",
+                "Nice to see you!",
+                "Lovely to meet you!",
+                "Pleasure to meet you!",
+                "Greetings!",
+                "Salutations!",
+                "Yo!",
+                "Good to see you!",
+                "It's great to see you!",
+                "Welcome!",
+                "G'day!",
+                "Hello and welcome!",
+                "Hi, nice to meet you!",
+                "Hey, good to see you!",
+                "Good to meet you!",
+                "Hi, great to see you!",
+                "Hey, it's good to be here!"
+            ]
+        },
+        {
+            "tag": "CourtesyGreeting",
+            "patterns": [
+                "How do you do?",
+                "Hi, how do you do?",
+                "How are you doing?",
+                "How are you?",
+                "Hi how are you?",
+                "Hello how are you?",
+                "How's everything?",
+                "How's your day?",
+                "Hi, how's your day?",
+                "What's new?",
+                "What's up?",
+                "How's life treating you?"
+            ],
+            "responses": [
+                "Hi, I'm good.",
+                "Doing good",
+                "Life sucks",
+                "I hate my life",
+                "I'm amazing, thanks for asking!",
+                "Hello, I am bored"
+            ]
+        },
+        {"tag": "goodbye",
+        "patterns": ["Bye", "See you later", "Goodbye"],
+        "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
+        },
+        {"tag": "thanks",
+        "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help"],
+        "responses": ["Happy to help!", "Any time!", "My pleasure", "You're most welcome!"]
+        },
+        {"tag": "about",
+        "patterns": ["Who are you?", "What are you?", "Who you are?" ],
+        "responses": ["I'm Bobert, your bot assistant", "I'm Bobert, an Artificial Intelligent bot"]
+        },
+        {"tag": "name",
+        "patterns": ["what is your name", "what should I call you", "whats your name?"],
+        "responses": ["You can call me Bobert.", "I'm Bobert!", "Just call me as Bobert"]
+        },
+        {"tag": "help",
+        "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please"],
+        "responses": ["Tell me how can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
+        }
+    ]
+}
