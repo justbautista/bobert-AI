@@ -60,49 +60,83 @@
             ]
         },
         {
-            "tag": "CourtesyGreeting",
+            "tag": "error",
             "patterns": [
-                "How do you do?",
-                "Hi, how do you do?",
-                "How are you doing?",
-                "How are you?",
-                "Hi how are you?",
-                "Hello how are you?",
-                "How's everything?",
-                "How's your day?",
-                "Hi, how's your day?",
-                "What's new?",
-                "What's up?",
-                "How's life treating you?"
-            ],
-            "responses": [
-                "Hi, I'm good.",
-                "Doing good",
-                "Life sucks",
-                "I hate my life",
-                "I'm amazing, thanks for asking!",
-                "Hello, I am bored"
-            ]
+                "Error: Cannot find module 'module-name'",
+                "Error: undefined is not a function",
+                "Fatal error: Call to undefined method MyClass::myMethod()",
+                "Error: Invalid syntax near line 50",
+                "Error: Failed to connect to database: Access denied for user 'username'@'localhost' (using password: YES)",
+                "Error: File not found: 'filename.txt'",
+                "Error: Invalid argument: 'arg1' is required",
+                "Error: Failed to open file for writing: Permission denied",
+                "Error: Duplicate entry 'value' for key 'unique_key'",
+                "Error: Type mismatch: expected 'integer', got 'string'",
+                "Error: Connection refused: unable to establish connection",
+                "Error: Object not found: 'object_name' does not exist",
+                "Error: Division by zero",
+                "Error: File already exists: 'filename' already exists, please choose a different name",
+                "Error: Maximum recursion depth exceeded",
+                "Error: Null pointer exception at line 75",
+                "Error: Timeout exceeded: operation took too long to complete",
+                "Error: Failed to parse JSON: unexpected token '{' at line 5",
+                "Error: Invalid file format: expected CSV, got XLSX",
+                "Error: Undefined variable: 'variable_name'",
+                "SyntaxError: Unexpected token ';' at line 5",
+                "TypeError: Cannot read property 'property_name' of undefined",
+                "ReferenceError: Variable 'variable_name' is not defined",
+                "RangeError: Invalid array length",
+                "NotFoundError: Element not found in the list",
+                "PermissionError: Access denied: insufficient permissions",
+                "DuplicateError: Item 'item_name' already exists",
+                "TimeoutError: Operation timed out",
+                "NetworkError: Failed to establish network connection",
+                "FileNotFoundError: File 'filename' not found",
+                "DivideByZeroError: Division by zero",
+                "NullPointerError: Object reference is null",
+                "OutOfMemoryError: Insufficient memory to allocate",
+                "StackOverflowError: Maximum stack depth exceeded",
+                "IndexError: Index out of range",
+                "AssertionError: Assertion failed: expected 'expected_value', got 'actual_value'",
+                "ValueError: Invalid value for parameter 'parameter_name'",
+                "KeyError: Key 'key_name' not found in dictionary",
+                "IOError: Failed to read from/write to file 'filename'",
+                "FormatError: Invalid format for data 'data_name'",
+                "Error",
+                "Bad Argument",
+                "ModuleNotFoundError: No module named 'nltk'"
+              ],
+              "responses": ["there is error"]      
         },
-        {"tag": "goodbye",
-        "patterns": ["Bye", "See you later", "Goodbye"],
-        "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
+        {
+            "tag": "find file",
+            "patterns": ["find this file"],
+            "responses": ["file finding"]
         },
-        {"tag": "thanks",
-        "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help"],
-        "responses": ["Happy to help!", "Any time!", "My pleasure", "You're most welcome!"]
+        {
+            "tag": "goodbye",
+            "patterns": ["Bye", "See you later", "Goodbye"],
+            "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
         },
-        {"tag": "about",
-        "patterns": ["Who are you?", "What are you?", "Who you are?" ],
-        "responses": ["I'm Bobert, your bot assistant", "I'm Bobert, an Artificial Intelligent bot"]
+        {
+            "tag": "thanks",
+            "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help"],
+            "responses": ["Happy to help!", "Any time!", "My pleasure", "You're most welcome!"]
         },
-        {"tag": "name",
-        "patterns": ["what is your name", "what should I call you", "whats your name?"],
-        "responses": ["You can call me Bobert.", "I'm Bobert!", "Just call me as Bobert"]
+        {
+            "tag": "about",
+            "patterns": ["Who are you?", "What are you?", "Who you are?" ],
+            "responses": ["I'm Bobert, your bot assistant", "I'm Bobert, an Artificial Intelligent bot"]
         },
-        {"tag": "help",
-        "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please"],
-        "responses": ["Tell me how can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
+        {
+            "tag": "name",
+            "patterns": ["what is your name", "what should I call you", "whats your name?"],
+            "responses": ["You can call me Bobert.", "I'm Bobert!", "Just call me as Bobert"]
+        },
+        {
+            "tag": "help",
+            "patterns": ["Could you help me?", "give me a hand please", "Can you help?", "What can you do for me?", "I need a support", "I need a help", "support me please"],
+            "responses": ["Tell me how can assist you", "Tell me your problem to assist you", "Yes Sure, How can I support you"]
         }
     ]
 }
