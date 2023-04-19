@@ -2,16 +2,35 @@ import os
 import fnmatch
 
 def find(pattern, path):
-    result = []
+    if "." not in pattern:
+        newPattern = f"*{pattern}*"
+    
+    resultFiles = []
+    resultDirs = []
     for root, dirs, files in os.walk(path):
         for name in files:
-            if fnmatch.fnmatch(name, pattern):
-                result.append(os.path.join(root, name))
+            if fnmatch.fnmatch(name, newPattern):
+                resultFiles.append(os.path.join(root, name))
         
         for name in dirs:
-            if fnmatch.fnmatch(name, pattern):
-                result.append(os.path.join(root, name))
-    return result
+            if fnmatch.fnmatch(name, newPattern):
+                resultDirs.append(os.path.join(root, name))
 
-# take input from bobert, classify if its specific (bobert.py) vs name (bobert), output in dirs and files
-find('*bobert*', '/')
+    return formatOutput(resultFiles, resultDirs)
+
+def formatOutput(files, dirs):
+    output = "This is what I found:\n\n"
+
+    if (len(files) != 0):
+        output += "Files:\n"
+
+        for file in files:
+            output += f"\t{file}\n"
+
+    if (len(dirs) != 0):
+        output += "Directories:\n"
+
+        for dir in dirs:
+            output += f"\t{dir}\n"
+        
+    return output
