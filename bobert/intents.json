@@ -109,8 +109,8 @@
               "responses": ["there is error"]      
         },
         {
-            "tag": "find file",
-            "patterns": ["find this file"],
+            "tag": "findfile",
+            "patterns": ["Can you find file.py"],
             "responses": ["file finding"]
         },
         {

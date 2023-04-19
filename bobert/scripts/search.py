@@ -4,6 +4,8 @@ import fnmatch
 def find(pattern, path):
     if "." not in pattern:
         newPattern = f"*{pattern}*"
+    else:
+        newPattern = pattern
     
     resultFiles = []
     resultDirs = []
@@ -34,3 +36,5 @@ def formatOutput(files, dirs):
             output += f"\t{dir}\n"
         
     return output
+
+print(find("search.py", "/home/myori/Projects"))
