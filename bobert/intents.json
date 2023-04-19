@@ -110,7 +110,32 @@
         },
         {
             "tag": "find file",
-            "patterns": ["find this file"],
+            "patterns": [
+                "Can you find file.txt",
+                "Can you find file.pdf",
+                "Can you find file.doc",
+                "Can you find file.docx",
+                "Can you find file.xls",
+                "Can you find file.xlsx",
+                "Can you find file.ppt",
+                "Can you find file.pptx",
+                "Can you find file.jpg",
+                "Can you find file.png",
+                "Can you find file.gif",
+                "Can you search for file.wav",
+                "Can you search for file.mp3",
+                "Can you search for file.mov",
+                "Search for file.cpp",
+                "Search for file.py",
+                "Search for file.js",
+                "Find file.sh",
+                "Find file.c",
+                "Find file.java",
+                "Can you find directory",
+                "Can you search for directory",
+                "Search for directory",
+                "Find directory"
+            ],
             "responses": ["file finding"]
         },
         {
