@@ -1,15 +1,18 @@
 import os
 import fnmatch
+from pathlib import Path
 
 def find(pattern, path):
     if "." not in pattern:
         newPattern = f"*{pattern}*"
     else:
         newPattern = pattern
+
+    newPath = str(Path.home()) + path
     
     resultFiles = []
     resultDirs = []
-    for root, dirs, files in os.walk(path):
+    for root, dirs, files in os.walk(newPath):
         for name in files:
             if fnmatch.fnmatch(name, newPattern):
                 resultFiles.append(os.path.join(root, name))
@@ -37,4 +40,4 @@ def formatOutput(files, dirs):
         
     return output
 
-print(find("search.py", "/home/myori/Projects"))
+print(find("bobert", "/"))

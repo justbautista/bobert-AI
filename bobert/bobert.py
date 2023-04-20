@@ -10,6 +10,68 @@ import colorama
 from colorama import Fore, Style
 import sys
 import os
+import fnmatch
+from pathlib import Path
+import re
+
+def find(pattern, path):
+    if "." not in pattern:
+        newPattern = f"*{pattern}*"
+    else:
+        newPattern = pattern
+
+    newPath = str(Path.home()) + path
+    
+    resultFiles = []
+    resultDirs = []
+    for root, dirs, files in os.walk(newPath):
+        for name in files:
+            if fnmatch.fnmatch(name, newPattern):
+                resultFiles.append(os.path.join(root, name))
+        
+        for name in dirs:
+            if fnmatch.fnmatch(name, newPattern):
+                resultDirs.append(os.path.join(root, name))
+
+    return formatOutput(resultFiles, resultDirs)
+
+def formatOutput(files, dirs):
+    output = "\n\nThis is what I found:\n\n"
+
+    if (len(files) != 0):
+        output += "Files:\n"
+
+        for file in files:
+            output += f"\t{file}\n"
+
+    if (len(dirs) != 0):
+        output += "Directories:\n"
+
+        for dir in dirs:
+            output += f"\t{dir}\n"
+        
+    return output
+
+def stripInput(input):
+    inList = input.split()
+    commonPreFind = ["find", "for", "search", "is"]
+
+    if (len(re.findall("^.*\..*$", inList[-1])) == 0 or 
+        inList[-2].lower() in commonPreFind or 
+        (len(inList) == 0 and len(re.findall("^.*\..*$", inList[-1])) == 0)):
+        return inList[-1]
+    
+    for i in range(len(inList))[:0:-1]:
+        if (len(re.findall("^.*\..*$", inList[i])) == 0 or 
+            inList[i-1].lower() in commonPreFind):
+            return inList[i] 
+
+def trainWeather():
+    return       
+
+
+
+###########################################################
 
 nltk.download('punkt')
 colorama.init()
@@ -132,9 +194,16 @@ def chat():
         if results[results_index] > 0.7:
             for tg in data["intents"]:
                 if tg["tag"] == tag:
-                    responses = tg["responses"]
+                    if tag == "find file":
+                        fileOrDir = stripInput(inp)
+                        responses = find(fileOrDir, "/")
+                    else:
+                        responses = tg["responses"]
 
-            print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , random.choice(responses))
+            if tag != "find file":
+                responses = random.choice(responses)
+            
+            print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , responses)
         else:
             print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , "Sorry, I don't understand")
 

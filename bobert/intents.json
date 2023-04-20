@@ -134,9 +134,36 @@
                 "Can you find directory",
                 "Can you search for directory",
                 "Search for directory",
-                "Find directory"
+                "Find directory",
+                "Where is directory",
+                "Where is file.py",
+                "Search file.mp4",
+                "Search folder"
             ],
-            "responses": ["file finding"]
+            "responses": ["find"]
+        },
+        {
+            "tag": "nonsense",
+            "patterns": [
+                "aihfewasdf",
+                "apohiucvhenoie",
+                "a",
+                "32107",
+                "c8e9wcu",
+                "nonsense",
+                "nc9832nc3  3 2",
+                "1209i9cj",
+                "djO",
+                "1",
+                "3970150642-",
+                "-pf-=32",
+                "aosfjfni",
+                "qwer",
+                "adsf",
+                "1234",
+                "zxcv"
+            ],
+            "responses": ["Sorry I don't understand"]
         },
         {
             "tag": "goodbye",
