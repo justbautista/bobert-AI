@@ -1,7 +1,6 @@
 from datetime import date
 import requests
 import geocoder
-import json
 
 API_KEY = "1dc13fdb9f3d234d72e7694cb84b7502"
 DAY_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast?"

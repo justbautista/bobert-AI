@@ -205,6 +205,24 @@
       "responses": ["Ok"]
     },
     {
+      "tag": "current weather",
+      "patterns": [
+        "What is the weather today"
+      ],
+      "responses": [
+        "yeah"
+      ]
+    },
+    {
+      "tag": "day weather",
+      "patterns": [
+        "What is the weather right now"
+      ],
+      "responses": [
+        "yeah"
+      ]
+    },
+    {
       "tag": "goodbye",
       "patterns": ["Bye", "See you later", "Goodbye"],
       "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
