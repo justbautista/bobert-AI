@@ -205,7 +205,7 @@
       "responses": ["Ok"]
     },
     {
-      "tag": "current weather",
+      "tag": "weather today",
       "patterns": [
         "What is the weather today"
       ],
@@ -214,12 +214,12 @@
       ]
     },
     {
-      "tag": "day weather",
+      "tag": "weather tomorrow",
       "patterns": [
-        "What is the weather right now"
+        "What is the weather tomorrow"
       ],
       "responses": [
-        "yeah"
+        "ok"
       ]
     },
     {

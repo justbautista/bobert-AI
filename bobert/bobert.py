@@ -32,14 +32,14 @@ def findDayWeather():
     url = createUrl(DAY_BASE_URL)
     response = requests.get(url).json()
 
-    city = response["city"]["name"]
-    country = response["city"]["country"]
     today = str(date.today())
     hi = -300
     lo = 300
     hiWind = -10000
     loWind = 10000
     descriptions = set()
+    todayFound = False
+    output = ""
 
     for i in range(response["cnt"]):
         dateFormatted = response["list"][i]["dt_txt"].split()[0]
@@ -47,25 +47,27 @@ def findDayWeather():
         loTemp = response["list"][i]["main"]["temp_min"]
         description = response["list"][i]["weather"][0]["description"]
         windSpeed = response["list"][i]["wind"]["speed"]
-        
+
         if dateFormatted == today:
             hi = max(hiTemp, hi)
             lo = min(loTemp, lo)
             hiWind = max(windSpeed, hiWind)
             loWind = min(windSpeed, loWind)
             descriptions.add(description)
+            todayFound = True
 
-    output = f"\nWeather Summary for the Rest of the Day in {city}, {country}:\n\n"
-    output += f"\tTemperature Range(Fahrenheit): {lo} - {hi}\n"
-    output += f"\tWind Speed Range(mph): {loWind} - {hiWind}\n"
-    output += "\tDescription: "
+    if todayFound:
+        output = f"\n\n\tRest of Day\n"
+        output += f"\tTemperature Range(Fahrenheit): {lo} - {hi}\n"
+        output += f"\tWind Speed Range(mph): {loWind} - {hiWind}\n"
+        output += "\tDescription: "
 
-    for i, desc in enumerate(descriptions):
-        if (i == len(descriptions) - 1):
-            output += desc
-            break
+        for i, desc in enumerate(descriptions):
+            if (i == len(descriptions) - 1):
+                output += desc
+                break
 
-        output += f"{desc}, "
+            output += f"{desc}, "
 
     output += "\n"
     return output
@@ -80,12 +82,16 @@ def findCurrentWeather():
     wind = response["wind"]["speed"]
     description = response["weather"][0]["description"]
 
-    output = f"\nWeather Summary Currently in {city}, {country}:\n\n"
+    output = f"\nWeather Summary in {city}, {country}:\n\n"
+    output += "\tCurrent\n"
     output += f"\tTemperature(Fahrenheit): {temperature}\n"
     output += f"\tWind Speed(mph): {wind}\n"
     output += f"\tDescription: {description}"
 
     return output
+
+def findWeatherToday():
+    return findCurrentWeather() + findDayWeather()
 
 ######################################################
 
@@ -271,10 +277,8 @@ def chat():
                     if tag == "find search":
                         fileOrDir = stripInput(inp)
                         responses = find(fileOrDir, "/")
-                    elif tag == "current weather":
-                        responses = findCurrentWeather()
-                    elif tag == "day weather":
-                        responses = findDayWeather()
+                    elif tag == "weather today":
+                        responses = findWeatherToday()
                     else:
                         responses = tg["responses"]
                         rand = True
