@@ -112,7 +112,7 @@
       "responses": ["there is error"]
     },
     {
-      "tag": "file search",
+      "tag": "filesearch",
       "patterns": [
         "Can you find file.txt",
         "Can you find file.pdf",
@@ -173,9 +173,10 @@
       "patterns": [
         "No, that's wrong, this should be a greeting",
         "No, that's wrong, this should be an error",
-        "No, that's wrong, this should be a file search",
+        "No, that's wrong, this should be a filesearch",
         "No, that's wrong, this should be nonsense",
-        "No, that's wrong, this should be weather",
+        "No, that's wrong, this should be weathertoday",
+        "No, that's wrong, this should be weathertomorrow",
         "No, that's wrong, this should be a goodbye",
         "No, that's wrong, this should be a thanks",
         "No, that's wrong, this should be an about",
@@ -183,9 +184,10 @@
         "No, that's wrong, this should be help",
         "No, it is a greeting",
         "No, it is an error",
-        "No, it is a file search",
+        "No, it is a filesearch",
         "No, it is nonsense",
-        "No, it is weather",
+        "No, it is weathertoday",
+        "No, it is weathertomorrow",
         "No, it is a goodbye",
         "No, it is a thanks",
         "No, it is an about",
@@ -193,9 +195,10 @@
         "No, it is a help",
         "My message should be a greeting",
         "My message should be an error",
-        "My message should be a file search",
+        "My message should be a filesearch",
         "My message should be nonsense",
-        "My message should be weather",
+        "My message should be weathertoday",
+        "My message should be weathertomorrow",
         "My message should be a goodbye",
         "My message should be a thanks",
         "My message should be an about",
@@ -205,7 +208,7 @@
       "responses": ["Ok"]
     },
     {
-      "tag": "weather today",
+      "tag": "weathertoday",
       "patterns": [
         "What is the weather today"
       ],
@@ -214,7 +217,7 @@
       ]
     },
     {
-      "tag": "weather tomorrow",
+      "tag": "weathertomorrow",
       "patterns": [
         "What is the weather tomorrow"
       ],

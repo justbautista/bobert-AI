@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, timedelta
 import requests
 import geocoder
 
@@ -13,18 +13,24 @@ def createUrl(baseUrl):
     url = f"{baseUrl}lat={loc[0]}&lon={loc[1]}&units={UNITS}&appid={API_KEY}"
     return url
 
-def findDayWeather():
+def findDayWeather(day):
     url = createUrl(DAY_BASE_URL)
     response = requests.get(url).json()
 
-    today = str(date.today())
+    if day == "today":
+        theDay = str(date.today())
+    else:
+        theDay = str(date.today() + timedelta(days=1))
+
     hi = -300
     lo = 300
     hiWind = -10000
     loWind = 10000
     descriptions = set()
-    todayFound = False
+    theDayFound = False
     output = ""
+    city = response["city"]["name"]
+    country = response["city"]["country"]
 
     for i in range(response["cnt"]):
         dateFormatted = response["list"][i]["dt_txt"].split()[0]
@@ -33,16 +39,20 @@ def findDayWeather():
         description = response["list"][i]["weather"][0]["description"]
         windSpeed = response["list"][i]["wind"]["speed"]
 
-        if dateFormatted == today:
+        if dateFormatted == theDay:
             hi = max(hiTemp, hi)
             lo = min(loTemp, lo)
             hiWind = max(windSpeed, hiWind)
             loWind = min(windSpeed, loWind)
             descriptions.add(description)
-            todayFound = True
+            theDayFound = True
 
-    if todayFound:
-        output = f"\n\n\tRest of Day\n"
+    if theDayFound:
+        if day == "today":
+            output = f"\n\n\tRest of Day\n"
+        else:
+            output = f"\nWeather Summary For Tomorrow in {city}, {country}:\n\n"
+
         output += f"\tTemperature Range(Fahrenheit): {lo} - {hi}\n"
         output += f"\tWind Speed Range(mph): {loWind} - {hiWind}\n"
         output += "\tDescription: "
@@ -67,7 +77,7 @@ def findCurrentWeather():
     wind = response["wind"]["speed"]
     description = response["weather"][0]["description"]
 
-    output = f"\nWeather Summary in {city}, {country}:\n\n"
+    output = f"\nWeather Summary For Today in {city}, {country}:\n\n"
     output += "\tCurrent\n"
     output += f"\tTemperature(Fahrenheit): {temperature}\n"
     output += f"\tWind Speed(mph): {wind}\n"
@@ -76,9 +86,11 @@ def findCurrentWeather():
     return output
 
 def findWeatherToday():
-    return findCurrentWeather() + findDayWeather()
+    return findCurrentWeather() + findDayWeather("today")
+
 
 print(findWeatherToday())
+print(findDayWeather("tomorrow"))
 
 
 

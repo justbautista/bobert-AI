@@ -13,9 +13,39 @@ import os
 import fnmatch
 from pathlib import Path
 import re
-from datetime import date
+from datetime import date, timedelta
 import requests
 import geocoder
+import json
+
+def correct(prevInput, currInput, jsonFile):
+    currInputArray = currInput.split()
+    newTag = currInputArray[-1]
+    foundTag = False
+    output = ""
+
+    try:
+        with open(jsonFile, "r") as file:
+            data = json.load(file)
+    except:
+        return "JSON file was not found"
+    
+    for intent in data["intents"]:
+        if intent["tag"] == newTag:
+            intent["patterns"].append(prevInput)
+            foundTag = True
+            break
+    
+    if foundTag:
+        with open(jsonFile, "w") as file:
+            json.dump(data, file)
+            output = f"Okay, I will remember that, '{prevInput}', is a {newTag}"
+    else:
+        output = f"'{newTag}' tag doesn't exist"
+    
+    return output
+
+##################################################
 
 API_KEY = "1dc13fdb9f3d234d72e7694cb84b7502"
 DAY_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast?"
@@ -28,18 +58,24 @@ def createUrl(baseUrl):
     url = f"{baseUrl}lat={loc[0]}&lon={loc[1]}&units={UNITS}&appid={API_KEY}"
     return url
 
-def findDayWeather():
+def findDayWeather(day):
     url = createUrl(DAY_BASE_URL)
     response = requests.get(url).json()
 
-    today = str(date.today())
+    if day == "today":
+        theDay = str(date.today())
+    else:
+        theDay = str(date.today() + timedelta(days=1))
+
     hi = -300
     lo = 300
     hiWind = -10000
     loWind = 10000
     descriptions = set()
-    todayFound = False
+    theDayFound = False
     output = ""
+    city = response["city"]["name"]
+    country = response["city"]["country"]
 
     for i in range(response["cnt"]):
         dateFormatted = response["list"][i]["dt_txt"].split()[0]
@@ -48,16 +84,20 @@ def findDayWeather():
         description = response["list"][i]["weather"][0]["description"]
         windSpeed = response["list"][i]["wind"]["speed"]
 
-        if dateFormatted == today:
+        if dateFormatted == theDay:
             hi = max(hiTemp, hi)
             lo = min(loTemp, lo)
             hiWind = max(windSpeed, hiWind)
             loWind = min(windSpeed, loWind)
             descriptions.add(description)
-            todayFound = True
+            theDayFound = True
 
-    if todayFound:
-        output = f"\n\n\tRest of Day\n"
+    if theDayFound:
+        if day == "today":
+            output = f"\n\n\tRest of Day\n"
+        else:
+            output = f"\nWeather Summary For Tomorrow in {city}, {country}:\n\n"
+
         output += f"\tTemperature Range(Fahrenheit): {lo} - {hi}\n"
         output += f"\tWind Speed Range(mph): {loWind} - {hiWind}\n"
         output += "\tDescription: "
@@ -82,7 +122,7 @@ def findCurrentWeather():
     wind = response["wind"]["speed"]
     description = response["weather"][0]["description"]
 
-    output = f"\nWeather Summary in {city}, {country}:\n\n"
+    output = f"\nWeather Summary For Today in {city}, {country}:\n\n"
     output += "\tCurrent\n"
     output += f"\tTemperature(Fahrenheit): {temperature}\n"
     output += f"\tWind Speed(mph): {wind}\n"
@@ -91,7 +131,7 @@ def findCurrentWeather():
     return output
 
 def findWeatherToday():
-    return findCurrentWeather() + findDayWeather()
+    return findCurrentWeather() + findDayWeather("today")
 
 ######################################################
 
@@ -258,6 +298,7 @@ def bag_of_words(s, words):
 def chat():
     os.system('cls')
     print("Start talking... (type quit to stop)")
+    messageArray = []
 
     while True:
         rand = False
@@ -277,8 +318,15 @@ def chat():
                     if tag == "find search":
                         fileOrDir = stripInput(inp)
                         responses = find(fileOrDir, "/")
-                    elif tag == "weather today":
+                    elif tag == "weathertoday":
                         responses = findWeatherToday()
+                    elif tag == "weathertomorrow":
+                        responses = findDayWeather("tomorrow")
+                    elif tag == "correction":
+                        if len(messageArray) == 0:
+                            responses = "There is no previous message to correct"
+                        else:
+                            responses = correct(messageArray[-1], inp, "intents.json")
                     else:
                         responses = tg["responses"]
                         rand = True
@@ -289,5 +337,7 @@ def chat():
             print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , responses)
         else:
             print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , "Sorry, I don't understand")
+        
+        messageArray.append(inp)
 
 chat()
