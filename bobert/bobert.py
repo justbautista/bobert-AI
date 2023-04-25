@@ -296,7 +296,7 @@ def bag_of_words(s, words):
 
 # chat
 def chat():
-    os.system('cls')
+    os.system('clear')
     print("Start talking... (type quit to stop)")
     messageArray = []
 
