@@ -315,7 +315,7 @@ def chat():
         if results[results_index] > 0.7:
             for tg in data["intents"]:
                 if tg["tag"] == tag:
-                    if tag == "find search":
+                    if tag == "filesearch":
                         fileOrDir = stripInput(inp)
                         responses = find(fileOrDir, "/")
                     elif tag == "weathertoday":

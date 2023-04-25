@@ -134,6 +134,9 @@
         "Find file.sh",
         "Find file.c",
         "Find file.java",
+        "Find bobert.py",
+        "Find file.sql",
+        "Find file.php",
         "Can you find directory",
         "Can you search for directory",
         "Search for directory",
@@ -164,7 +167,9 @@
         "qwer",
         "adsf",
         "1234",
-        "zxcv"
+        "zxcv",
+        "asd",
+        "asdasd"
       ],
       "responses": ["Sorry I don't understand"]
     },
@@ -209,21 +214,13 @@
     },
     {
       "tag": "weathertoday",
-      "patterns": [
-        "What is the weather today"
-      ],
-      "responses": [
-        "yeah"
-      ]
+      "patterns": ["What is the weather today"],
+      "responses": ["yeah"]
     },
     {
       "tag": "weathertomorrow",
-      "patterns": [
-        "What is the weather tomorrow"
-      ],
-      "responses": [
-        "ok"
-      ]
+      "patterns": ["What is the weather tomorrow"],
+      "responses": ["ok"]
     },
     {
       "tag": "goodbye",
