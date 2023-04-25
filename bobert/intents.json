@@ -214,13 +214,28 @@
     },
     {
       "tag": "weathertoday",
-      "patterns": ["What is the weather today"],
-      "responses": ["yeah"]
+      "patterns": [
+        "What is the weather today",
+        "What is the weather like today",
+        "How is the weather today",
+        "What is the weather now",
+        "What is the weather like now",
+        "How is the weather now"
+      ],
+      "responses": [
+        "yeah"
+      ]
     },
     {
       "tag": "weathertomorrow",
-      "patterns": ["What is the weather tomorrow"],
-      "responses": ["ok"]
+      "patterns": [
+        "What is the weather tomorrow",
+        "What is the weather like tomorrow",
+        "How is the weather tomorrow"
+      ],
+      "responses": [
+        "ok"
+      ]
     },
     {
       "tag": "goodbye",
