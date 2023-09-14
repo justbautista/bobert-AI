@@ -6,18 +6,18 @@ Final project for my AI class. Bobert is a simple intent-based chatbot using Pyt
 
 - Chat with Bobert ("hello", "goodbye", etc)
 
-  ![hi_bobert](https://github.com/justbautista/bobert-AI/assets/65434552/a5c66be1-b899-4b0b-8ecb-610255d75d5c)
+  ![hi_bobert](https://github.com/justbautista/bobert-AI/assets/65434552/4d951d96-ae8a-49bb-b911-58c5f0abba5e)
 - Ask Bobert to find a file, Bobert will return the file path
 
-  ![find_file](https://github.com/justbautista/bobert-AI/assets/65434552/3eb2efd7-c6f2-49e7-8e32-bbf396350dd4)
+  ![find_file](https://github.com/justbautista/bobert-AI/assets/65434552/d38dd2a7-3c68-430a-b988-dfe374517f87)
 - Bobert can tell you the weather in your area for today or tomorrow
 
-  ![weather_today](https://github.com/justbautista/bobert-AI/assets/65434552/b16a2e7f-d79b-4b28-981f-219c81bbbff8)
+  ![weather_today](https://github.com/justbautista/bobert-AI/assets/65434552/2f4843f1-5536-4810-b9ea-486b5bab2c3d)
 - Bobert's misunderstanding your intent, correct him
 
-  ![correcting bobert](https://github.com/justbautista/bobert-AI/assets/65434552/38ab476e-ec8e-4c96-b80a-7d3aa66dc3d5)
-  
-  ![bobert corrected himself](https://github.com/justbautista/bobert-AI/assets/65434552/b9a2ba3b-045f-4f68-bb75-138b128a782d)
+  ![correcting bobert](https://github.com/justbautista/bobert-AI/assets/65434552/a5cd8c19-d1b7-4ed7-a82f-6446f1e90003)
+  ![bobert remembered](https://github.com/justbautista/bobert-AI/assets/65434552/f1ebf3c2-cb42-454b-bd78-83d6514ca25d)
+
 
 
 
