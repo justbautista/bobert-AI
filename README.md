@@ -51,7 +51,7 @@ Go into bobert directory
   cd bobert
 ```
 
-Create new .env file or rename .example.env and paste generated API key
+Create new .env file or rename .example-env and paste generated API key
 
 ```bash
   API_KEY=<Generated OpenWeatherMap API Key>
