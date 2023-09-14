@@ -17,6 +17,9 @@ from datetime import date, timedelta
 import requests
 import geocoder
 import json
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def correct(prevInput, currInput, jsonFile):
     currInputArray = currInput.split()
@@ -29,34 +32,37 @@ def correct(prevInput, currInput, jsonFile):
             data = json.load(file)
     except:
         return "JSON file was not found"
-    
+
     for intent in data["intents"]:
         if intent["tag"] == newTag:
             intent["patterns"].append(prevInput)
             foundTag = True
             break
-    
+
     if foundTag:
         with open(jsonFile, "w") as file:
             json.dump(data, file)
             output = f"Okay, I will remember that, '{prevInput}', is a {newTag}"
     else:
         output = f"'{newTag}' tag doesn't exist"
-    
+
     return output
+
 
 ##################################################
 
-API_KEY = "1dc13fdb9f3d234d72e7694cb84b7502"
+API_KEY = os.environ["API_KEY"]
 DAY_BASE_URL = "https://api.openweathermap.org/data/2.5/forecast?"
 CURRENT_BASE_URL = "https://api.openweathermap.org/data/2.5/weather?"
 UNITS = "imperial"
 
 loc = geocoder.ip("me").latlng
 
+
 def createUrl(baseUrl):
     url = f"{baseUrl}lat={loc[0]}&lon={loc[1]}&units={UNITS}&appid={API_KEY}"
     return url
+
 
 def findDayWeather(day):
     url = createUrl(DAY_BASE_URL)
@@ -103,7 +109,7 @@ def findDayWeather(day):
         output += "\tDescription: "
 
         for i, desc in enumerate(descriptions):
-            if (i == len(descriptions) - 1):
+            if i == len(descriptions) - 1:
                 output += desc
                 break
 
@@ -111,6 +117,7 @@ def findDayWeather(day):
 
     output += "\n"
     return output
+
 
 def findCurrentWeather():
     url = createUrl(CURRENT_BASE_URL)
@@ -130,10 +137,13 @@ def findCurrentWeather():
 
     return output
 
+
 def findWeatherToday():
     return findCurrentWeather() + findDayWeather("today")
 
+
 ######################################################
+
 
 def find(pattern, path):
     if "." not in pattern:
@@ -142,66 +152,78 @@ def find(pattern, path):
         newPattern = pattern
 
     newPath = str(Path.home()) + path
-    
+
     resultFiles = []
     resultDirs = []
     for root, dirs, files in os.walk(newPath):
         for name in files:
             if fnmatch.fnmatch(name, newPattern):
                 resultFiles.append(os.path.join(root, name))
-        
+
         for name in dirs:
             if fnmatch.fnmatch(name, newPattern):
                 resultDirs.append(os.path.join(root, name))
 
     return formatOutput(resultFiles, resultDirs)
 
+
 def formatOutput(files, dirs):
     output = "\n\nThis is what I found:\n\n"
 
-    if (len(files) != 0):
+    if len(files) != 0:
         output += "Files:\n"
 
         for file in files:
             output += f"\t{file}\n"
 
-    if (len(dirs) != 0):
+    if len(dirs) != 0:
         output += "Directories:\n"
 
         for dir in dirs:
             output += f"\t{dir}\n"
-        
+
     return output
+
 
 def stripInput(input):
     inList = input.split()
     commonPreFind = ["find", "for", "search", "is"]
 
-    if (len(re.findall("^.*\..*$", inList[-1])) == 0 or 
-        inList[-2].lower() in commonPreFind or 
-        (len(inList) == 0 and len(re.findall("^.*\..*$", inList[-1])) == 0)):
+    if (
+        len(re.findall("^.*\..*$", inList[-1])) == 0
+        or inList[-2].lower() in commonPreFind
+        or (len(inList) == 0 and len(re.findall("^.*\..*$", inList[-1])) == 0)
+    ):
         return inList[-1]
-    
+
     for i in range(len(inList))[:0:-1]:
-        if (len(re.findall("^.*\..*$", inList[i])) == 0 or 
-            inList[i-1].lower() in commonPreFind):
-            return inList[i] 
+        if (
+            len(re.findall("^.*\..*$", inList[i])) == 0
+            or inList[i - 1].lower() in commonPreFind
+        ):
+            return inList[i]
+
 
 def trainWeather():
-    return       
+    return
+
 
 ###########################################################
 
-nltk.download('punkt')
+nltk.download("punkt")
 colorama.init()
-stemmer = LancasterStemmer()  
+stemmer = LancasterStemmer()
 
 # easier way to retrain model
 if "--train" in sys.argv[1:]:
     TRAIN = True
 
     for filename in os.listdir():
-        if "model_bobert" in filename or "checkpoint" in filename or "data.pickle" in filename:
+        if (
+            "model_bobert" in filename
+            or "checkpoint" in filename
+            or "data.pickle" in filename
+        ):
             os.remove(filename)
 else:
     TRAIN = False
@@ -211,10 +233,10 @@ with open("intents.json") as file:
     data = json.load(file)
 
 if TRAIN:
-    words = [] 
+    words = []
     labels = []
-    docs_x = [] 
-    docs_y = [] 
+    docs_x = []
+    docs_y = []
 
     for intent in data["intents"]:
         for pattern in intent["patterns"]:
@@ -275,10 +297,11 @@ model = tflearn.DNN(net)
 
 # model training
 if TRAIN:
-    model.fit(training, output, n_epoch=500, batch_size=8, show_metric=True)
+    model.fit(training, output, n_epoch=200, batch_size=8, show_metric=True)
     model.save("model_bobert")
 else:
     model.load("model_bobert")
+
 
 # preprocessor for user input
 def bag_of_words(s, words):
@@ -294,9 +317,10 @@ def bag_of_words(s, words):
 
     return np.array(bag)
 
+
 # chat
 def chat():
-    os.system('clear')
+    os.system("clear")
     print("Start talking... (type quit to stop)")
     messageArray = []
 
@@ -333,11 +357,12 @@ def chat():
 
             if rand:
                 responses = random.choice(responses)
-            
-            print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , responses)
+
+            print(Fore.GREEN + "Bobert:" + Style.RESET_ALL, responses)
         else:
-            print(Fore.GREEN + "Bobert:" + Style.RESET_ALL , "Sorry, I don't understand")
-        
+            print(Fore.GREEN + "Bobert:" + Style.RESET_ALL, "Sorry, I don't understand")
+
         messageArray.append(inp)
+
 
 chat()
